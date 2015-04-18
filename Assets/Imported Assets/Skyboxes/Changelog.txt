@@ -1,0 +1,13 @@
+v1.1 
+Updated minimum required Unity to v4.3
+Added Skybox
+-SilverTeal
+
+v1.0 (Initial Version)
+Added Skyboxes
+-FireBlue
+-GoldCyan
+-GreenBlue
+-PurpleRed
+-RedBlue
+-RedOrange
