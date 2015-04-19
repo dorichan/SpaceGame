@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
+public class Boundary
+{
+	public float xMin, xMax, zMin, zMax;
+}
+
 public class ShipController : MonoBehaviour 
 {
 	private float translation;
@@ -12,6 +18,8 @@ public class ShipController : MonoBehaviour
 	public float speedX;
 	public float speedY;
 	public float rotationSpeed;
+
+	public Boundary boundary;
 
 	public ArcReactor_Arc laser;
 	public ArcReactor_Arc secLaser;
@@ -61,25 +69,29 @@ public class ShipController : MonoBehaviour
 
 			if (Input.GetKey (KeyCode.W)) {
 				if (speed <= 10.0f) {
-					speedY += 8.0f * Time.deltaTime;
+					speedY += 10.0f * Time.deltaTime;
+				}
+				if (transform.position.z < boundary.zMin) {
+					speedY = 0.0f;
+					Debug.Log ("Z Min Boundary Reached.");
 				}
 			}
 			
 			if (Input.GetKey (KeyCode.S)) {
 				if (speed >= 0.0f) {
-					speedY -= 8.0f * Time.deltaTime;
+					speedY -= 10.0f * Time.deltaTime;
 				}
 			}
 
 			if (Input.GetKey (KeyCode.A)) {
 				if (speed <= 10.0f) {
-					speedX += 8.0f * Time.deltaTime;
+					speedX += 10.0f * Time.deltaTime;
 				}
 			}
 
 			if (Input.GetKey (KeyCode.D)) {
 				if (speed >= 0.0f) {
-					speedX -= 8.0f * Time.deltaTime;
+					speedX -= 10.0f * Time.deltaTime;
 				}
 			}
 
@@ -89,7 +101,7 @@ public class ShipController : MonoBehaviour
 		if (Input.GetKey(KeyCode.Mouse0)) {
 			laser.freeze = false;
 
-			if(laser.elapsedTime >= 0.5) {
+			if(laser.elapsedTime >= 0.3) {
 				laser.elapsedTime = 0;
 			}
 		}
