@@ -8,7 +8,7 @@ public class AsteroidDisableSelf : MonoBehaviour
 		Invoke ("Destroy", 7f);
 	}
 
-	void Destroy()
+	public void Destroy()
 	{
 		gameObject.SetActive (false);
 	}
