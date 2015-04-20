@@ -84,24 +84,39 @@ public class ShipController : MonoBehaviour
 				}
 			}
 
-			if (Input.GetKey (KeyCode.A) || Input.acceleration.x > 0) {
+			if (Input.GetKey (KeyCode.A)) {
+				transform.Rotate (0, speedX * Time.deltaTime, 0, Space.World);
+
 				if (speed <= 10.0f) {
 					speedX += 10.0f * Time.deltaTime;
 				}
 			}
 
-			if (Input.GetKey (KeyCode.D) || Input.acceleration.x < 0) {
+			if (Input.GetKey (KeyCode.D)) {
+				transform.Rotate (0, -speedX * Time.deltaTime, 0, Space.World);
+
 				if (speed >= 0.0f) {
 					speedX -= 10.0f * Time.deltaTime;
 				}
 			}
 
 			transform.Translate (sideways, translation, 0);
+
+			// MOBILE SECTION
+			transform.Translate (-Input.acceleration.x * 10.0f * Time.deltaTime, Input.acceleration.y * 10.0f * Time.deltaTime, 0.0f);
+
+			if(Input.acceleration.x <= 0.0f) {
+				transform.Rotate (0, speedX * Time.deltaTime, 0, Space.World);
+			}
+
+			if(Input.acceleration.x >= 0.0f) {
+				transform.Rotate (0, -speedX * Time.deltaTime, 0, Space.World);
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.Mouse0)) {
 			laser.freeze = false;
-			audio.Play(laserSound);
+			audio.Play();
 
 			if(laser.elapsedTime >= 0.3) {
 				laser.elapsedTime = 0;
@@ -114,7 +129,7 @@ public class ShipController : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.Mouse1)) {
 			secLaser.freeze = false;
-			audio.Play (secLaserSound);
+			audio.Play ();
 			
 			if(secLaser.elapsedTime >= 2) {
 				secLaser.elapsedTime = 0;

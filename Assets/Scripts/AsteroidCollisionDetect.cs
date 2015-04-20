@@ -9,6 +9,7 @@ public class AsteroidCollisionDetect : MonoBehaviour
 	{
 		if (other.gameObject.tag == "Player") {
 			Debug.Log ("Hit player!");
+			gameObject.SetActive (false);
 			other.SendMessage("OnDamage", 20);
 		}
 	}
@@ -16,6 +17,6 @@ public class AsteroidCollisionDetect : MonoBehaviour
 	public void OnHit()
 	{
 		GameObject exp = Instantiate(explosion, transform.position, transform.rotation) as GameObject;
-		gameObject.GetComponent<AsteroidDisableSelf>().Destroy();
+		gameObject.SetActive (false);
 	}
 }
